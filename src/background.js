@@ -23,10 +23,8 @@ chrome.browserAction.onClicked.addListener(function(tab){
   // })
 
   var data = {
-    'location': {
-      'origin': window.location.origin,
-      'pathname': window.location.pathname
-    },
+    'title': tab.title,
+    'url': tab.url,
     'user': {
       'name': 'test',
       'email': 'hogehoge',
@@ -34,12 +32,15 @@ chrome.browserAction.onClicked.addListener(function(tab){
   }
 
   $.ajax({
-    url: 'http://0.0.0.0:3000/sample/index',
+    url: 'http://0.0.0.0:3000/item/create',
     type: 'post',
     data: data,
   })
   .done(function( data ) {
-    alert(JSON.stringify(data));
+    // alert(JSON.stringify(data));
+    // chrome.tabs.executeScript(null,{
+    //   'code': 'document.body.innerHTML('+data.content_html+')'
+    // })
   })
   .fail(function( jqXHR, textStatus, errorThrown ) {
     alert(errorThrown);
